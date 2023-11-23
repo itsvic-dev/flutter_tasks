@@ -1,7 +1,7 @@
 {
   description = "Flutter round 2";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 

@@ -42,19 +42,24 @@ class TasksView extends HookConsumerWidget {
     final tasks = ref.watch(taskListProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Tasks")),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 40,
-        ),
-        children: [
-          for (var i = 0; i < tasks.length; i++) ...[
-            ProviderScope(
-              overrides: [_currentTask.overrideWithValue(tasks[i])],
-              child: const TaskItem(),
-            ),
-          ],
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          const SliverAppBar.large(
+            title: Text("Tasks"),
+          ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (context, i) {
+              return ProviderScope(
+                overrides: [
+                  _currentTask.overrideWithValue(tasks[i]),
+                ],
+                child: const TaskItem(),
+              );
+            },
+            childCount: tasks.length,
+          ))
         ],
       ),
     );
@@ -67,6 +72,14 @@ class TaskItem extends HookConsumerWidget {
   const TaskItem({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    final task = ref.watch(_currentTask);
+    return ListTile(
+      title: Text(task.description),
+      leading: Checkbox(
+        value: task.completed,
+        onChanged: (value) =>
+            ref.read(taskListProvider.notifier).toggle(task.id),
+      ),
+    );
   }
 }

@@ -19,7 +19,10 @@ class Task {
 
 class TaskList extends Notifier<List<Task>> {
   @override
-  List<Task> build() => [const Task(id: 'task-1', description: 'hii')];
+  List<Task> build() => [
+        const Task(id: 'task-1', description: 'hii'),
+        const Task(id: 'task-2', description: 'all my homies hate vercel'),
+      ];
 
   void add(String description) {
     state = [
@@ -28,6 +31,20 @@ class TaskList extends Notifier<List<Task>> {
         id: _uuid.v4(),
         description: description,
       ),
+    ];
+  }
+
+  void toggle(String id) {
+    state = [
+      for (final task in state)
+        if (task.id == id)
+          Task(
+            id: task.id,
+            description: task.description,
+            completed: !task.completed,
+          )
+        else
+          task,
     ];
   }
 }
