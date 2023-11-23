@@ -22,7 +22,7 @@
           buildToolsVersions = [ "30.0.3" ];
           includeEmulator = false;
           emulatorVersion = "33.1.6";
-          platformVersions = [ "28" "33" ];
+          platformVersions = [ "28" "31" "33" ];
           includeSources = false;
           includeSystemImages = false;
           systemImageTypes = [ "google_apis_playstore" ];
