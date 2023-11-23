@@ -26,7 +26,7 @@
           includeSources = false;
           includeSystemImages = false;
           systemImageTypes = [ "google_apis_playstore" ];
-          abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
+          abiVersions = [ "armeabi-v7a" "arm64-v8a" "x86_64" ];
           cmakeVersions = [ "3.10.2" ];
           includeNDK = true;
           ndkVersions = [ "22.0.7026061" ];
@@ -44,6 +44,13 @@
             jdk17
           ]);
         };
+
+        emulator = pkgs.androidenv.emulateApp {
+          name = "run-emulator";
+          platformVersion = "33";
+          abiVersion = "x86_64";
+          systemImageType = "google_apis_playstore";
+        };
       in
       {
         devShell = with pkgs; mkShell rec {
@@ -51,6 +58,7 @@
           JAVA_HOME = jdk17;
           buildInputs = [
             fhs
+            emulator
           ];
           shellHook = "exec android-sdk-env";
         };
