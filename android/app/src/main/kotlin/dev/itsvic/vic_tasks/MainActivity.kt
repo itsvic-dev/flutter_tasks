@@ -1,4 +1,4 @@
-package com.example.my_app
+package dev.itsvic.vic_tasks
 
 import io.flutter.embedding.android.FlutterActivity
 
