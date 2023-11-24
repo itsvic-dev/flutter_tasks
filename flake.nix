@@ -44,13 +44,6 @@
             jdk17
           ]);
         };
-
-        emulator = pkgs.androidenv.emulateApp {
-          name = "run-emulator";
-          platformVersion = "33";
-          abiVersion = "x86_64";
-          systemImageType = "google_apis_playstore";
-        };
       in
       {
         devShell = with pkgs; mkShell rec {
@@ -58,7 +51,6 @@
           JAVA_HOME = jdk17;
           buildInputs = [
             fhs
-            emulator
           ];
           shellHook = "exec android-sdk-env";
         };
